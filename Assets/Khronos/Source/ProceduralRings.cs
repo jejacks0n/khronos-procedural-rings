@@ -13,7 +13,7 @@ public class ProceduralRingsBase : PartModule
 {
 	public override void OnStart(StartState state)
 	{
-		print("~~~~~~BASE~~~~~~~~~~~~~~~~~~");
+		print("~~~~~~BASE~~~~~asdASD~~~~~~~~~~~~~");
 	}
 }
 
@@ -21,7 +21,7 @@ public class ProceduralRingsStrut : PartModule
 {
 	public override void OnStart(StartState state)
 	{
-		print("~~~~~~STRUT1~~~~~~~~~~~~~~~~");
+		print("~~~~~~STRUT1~~~~~~asd~~~~~~~~~~");
 	}
 }
 

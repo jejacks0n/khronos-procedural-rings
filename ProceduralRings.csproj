@@ -22,6 +22,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp ProceduralRings.dll ../../../Assets/Khronos/ProceduralRings; cp -rf ../../../Assets/Khronos ~/Desktop/KSP_osx/GameData" workingdir="${TargetDir}" externalConsole="true" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
