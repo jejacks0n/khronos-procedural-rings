@@ -1,8 +1,6 @@
-# Procedural Rings
+# ProceduralRings
 
-A Kerbal Space Program Plugin
-
-### Presented by Khronos, Helmet & Schwartz MFG Limited
+#### Presented by Khronos, Helmet & Schwartz MFG Limited
 
 Using duct tape, some scrap struts and not-so-top-of-the-line panels, a specialized team of special specialists will build a "HyperRing" sized to your exact needs. This of course happens in an alternate time stream.
 
