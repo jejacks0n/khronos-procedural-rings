@@ -7,30 +7,154 @@ using System.Linq;
 using UnityEngine;
  
 namespace Khronos {
-//toroid
+
+
+// ----------------------------------------------------------------------------
+//
+// Base
+//
+// ----------------------------------------------------------------------------
 
 public class ProceduralRingsBase : PartModule
 {
-	public override void OnStart(StartState state)
-	{
-		print("~~~~~~BASE~~~~~asdASD~~~~~~~~~~~~~");
-	}
+//  [KSPField] public float   outlineWidth    = 0.05f;
+//  [KSPField] public int     outlineSlices   = 12;
+//  [KSPField] public float   verticalStep    = 0.2f;
+//  [KSPField] public int     circleSegments  = 24;
+//  [KSPField] public float   sideThickness   = 0.05f;
+  [KSPField] public Vector4 outlineColor    = new Vector4(0, 0, 0.2f, 1);
+
+  [KSPField] public float   baseSize         = 1.25f;
+
+  [KSPField] public string  radiusKey        = "r";
+  [KSPField] public float   radiusMultiplier = 0.5f;
+  [KSPField] public float   radiusMin        = 1f;
+  [KSPField] public float   radiusMax        = 30f;
+
+  [KSPField(isPersistant = true)] public float radius = 5f;
+
+  float updateDelay = 0;
+
+//  LineRenderer line = null;
+//  List<LineRenderer> outline=new List<LineRenderer>();
+//  List<ConfigurableJoint> joints=new List<ConfigurableJoint>();
+
+
+  public override void OnStart(StartState state)
+  {
+    print("[KPR] Added base part");
+  }
+
+
+  public override string GetInfo()
+  {
+    string s = "Attach a HyperRing Strut and a toroid will be built in a different time stream and warp in instantly.\n";
+    if (!string.IsNullOrEmpty(radiusKey))
+    {
+      s += "\nMouse over and hold '" + radiusKey + "' to adjust radius.";
+    }
+    return s;
+  }
+
+
+  public void OnMouseOver() {
+    if (!HighLogic.LoadedSceneIsEditor || !part.isConnected)
+    {
+      return;
+    }
+
+    if (Input.GetKey(radiusKey))
+    {
+      float old = radius;
+      radius += (Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")) * radiusMultiplier;
+      radius = Mathf.Max(radius, radiusMin);
+      radius = Mathf.Min(radius, radiusMax);
+      if (radius != old) updateDelay = 0;
+
+      print(string.Format("[KPR] adjusted radius {0}", radius));
+    }
+  }
 }
+
+
+
+// ----------------------------------------------------------------------------
+//
+// Strut
+//
+// ----------------------------------------------------------------------------
 
 public class ProceduralRingsStrut : PartModule
 {
-	public override void OnStart(StartState state)
-	{
-		print("~~~~~~STRUT1~~~~~~asd~~~~~~~~~~");
-	}
+  [KSPField] public string  sizeKey          = "t";
+  [KSPField] public float   sizeMultiplier   = 0.1f;
+  [KSPField] public float   sizeMin          = 0.2f;
+  [KSPField] public float   sizeMax          = 5f;
+
+  [KSPField] public string  shapeKey         = "s";
+  [KSPField] public float   shapeMultiplier  = 0.1f;
+  [KSPField] public float   shapeMin         = 0.2f;
+  [KSPField] public float   shapeMax         = 5f;
+
+  [KSPField(isPersistant = true)] public float size = 1f;
+  [KSPField(isPersistant = true)] public float shape = 1f;
+
+  float updateDelay = 0;
+
+
+  public override void OnStart(StartState state)
+  {
+    print("[KPR] Added strut part");
+  }
+
+
+  public override string GetInfo()
+  {
+    string s = "Attach to a HyperRing Base and a toroid will be built in a different time stream and warp in instantly.\n";
+    if (!string.IsNullOrEmpty(sizeKey))
+    {
+      s += "\nMouse over and hold '" + sizeKey + "' to adjust the toroid size.";
+    }
+    if (!string.IsNullOrEmpty(shapeKey))
+    {
+      s += "\nMouse over and hold '" + shapeKey + "' to adjust the toroid shape.";
+    }
+    return s;
+  }
+
+
+  public void OnMouseOver() {
+    if (!HighLogic.LoadedSceneIsEditor || !part.isConnected)
+    {
+      return;
+    }
+
+    if (Input.GetKey(sizeKey))
+    {
+      float old = size;
+      size += (Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")) * sizeMultiplier;
+      size = Mathf.Max(size, sizeMin);
+      size = Mathf.Min(size, sizeMax);
+      if (size != old) updateDelay = 0;
+
+      print(string.Format("[KPR] adjusted size {0}", size));
+    }
+    else if (Input.GetKey(shapeKey))
+    {
+      float old = shape;
+      shape += (Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")) * shapeMultiplier;
+      shape = Mathf.Max(shape, shapeMin);
+      shape = Mathf.Min(shape, shapeMax);
+      if (shape != old) updateDelay = 0;
+
+      print(string.Format("[KPR] adjusted shape {0}", shape));
+    }
+  }
 }
 
 } // namespace
 
-//
-//
-////ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ//
-//
+
 //
 //struct BezierSlope
 //{
@@ -55,8 +179,6 @@ public class ProceduralRingsStrut : PartModule
 //  }
 //}
 //
-//
-////ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ//
 //
 //
 //struct PayloadScan
@@ -1268,6 +1390,3 @@ public class ProceduralRingsStrut : PartModule
 //    }
 //  }
 //}
-//
-
-//} // namespace
