@@ -33,9 +33,9 @@ This project is incomplete, and not useful yet.
 
 ## Credits and Attributions
 
-Code by **[Jeremy Jackson](https://github.com/jejacks0n)**
-Models by **Unknown**
-Inspiration and useful code by **e-dog** and his **[Procedural Fairings](http://kerbalspaceport.com/procedural-fairings/)**
+- Code by **[Jeremy Jackson](https://github.com/jejacks0n)**
+- Models by **Unknown**
+- Inspiration and useful code by **e-dog** and his **[Procedural Fairings](http://kerbalspaceport.com/procedural-fairings/)**
 
 
 ## License
