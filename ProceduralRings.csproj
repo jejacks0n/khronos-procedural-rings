@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BC246F14-91F5-9E51-C2B8-B2B064A5C1AE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Khronos</RootNamespace>
+    <AssemblyName>ProceduralRings</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;UNITY_STANDALONE_OSX;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GAMECENTER;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;UNITY_4_2_0;UNITY_4_2;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_OSX;UNITY_TEAM_LICENSE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Temp\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp ProceduralRings.dll ../../../Assets/Khronos/ProceduralRings; cp -rf ../../../Assets/Khronos ~/Desktop/KSP_osx/GameData" workingdir="${TargetDir}" externalConsole="true" />
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>..\..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="ProceduralRings">
+      <HintPath>Assets\Khronos\ProceduralRings\ProceduralRings.dll</HintPath>
+    </Reference>
+    <Reference Include="PartTools">
+      <HintPath>Assets\PartTools\Lib\PartTools.dll</HintPath>
+    </Reference>
+    <Reference Include="PartToolsEditor">
+      <HintPath>Assets\PartTools\Lib\PartToolsEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\Desktop\KSP_osx\KSP.app\Contents\Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\PartTools\Shaders\Specular.shader" />
+    <None Include="Assets\PartTools\Shaders\BumpedSpecular.shader" />
+    <None Include="Assets\PartTools\Shaders\Cutoff.shader" />
+    <None Include="Assets\PartTools\Shaders\UnlitTransparent.shader" />
+    <None Include="Assets\PartTools\Shaders\EmissiveSpecular.shader" />
+    <None Include="Assets\PartTools\Shaders\Diffuse.shader" />
+    <None Include="Assets\PartTools\Shaders\AlphaSpecular.shader" />
+    <None Include="Assets\PartTools\Shaders\ParticleAdd.shader" />
+    <None Include="Assets\PartTools\Shaders\Unlit.shader" />
+    <None Include="Assets\PartTools\Shaders\Bumped.shader" />
+    <None Include="Assets\PartTools\Shaders\Alpha.shader" />
+    <None Include="Assets\PartTools\Shaders\CutoffBumped.shader" />
+    <None Include="Assets\PartTools\Shaders\Emissive.shader" />
+    <None Include="Assets\PartTools\Shaders\ParticleAlpha.shader" />
+    <None Include="Assets\PartTools\Shaders\EmissiveBumpedSpecular.shader" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup>
+    <Folder Include="Assets\Khronos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Khronos\Source\ProceduralRings.cs" />
+  </ItemGroup>
+</Project>
