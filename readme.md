@@ -1,4 +1,4 @@
-# ProceduralRings
+# Procedural "HyperRings"
 
 #### Presented by Khronos, Helmet & Schwartz MFG Limited
 
@@ -7,12 +7,13 @@ Using duct tape, some scrap struts and not-so-top-of-the-line panels, a speciali
 
 ## Notes
 
-This project is incomplete, and not useful yet.
+This project is incomplete, and not useful yet. At this point it only logs the radius / size / shape values.
+Use [Alt/Option]+F2 to open the console and use the documented controls to see the values change.. These values will be persisted in your craft file.
 
 
 ## Installation
 
-[Download](), extract, and place in `GameData` path.
+[Download](https://github.com/jejacks0n/khronos-procedural-rings/archive/master.zip), extract, and place `Assets/Khronos` in `GameData` path.
 
 
 ## Usage
@@ -32,7 +33,7 @@ This project is incomplete, and not useful yet.
 ## Credits and Attributions
 
 - Code by **[Jeremy Jackson](https://github.com/jejacks0n)**
-- Models by **Unknown**
+- Models by **[Jeremy Jackson](https://github.com/jejacks0n)** (better ones are on the way)
 - Inspiration and useful code by **e-dog** and his **[Procedural Fairings](http://kerbalspaceport.com/procedural-fairings/)**
 
 
