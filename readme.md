@@ -27,7 +27,9 @@ Use [Alt/Option]+F2 to open the console and use the documented controls to see t
 
 ## Screenshots
 
-... coming soon ...
+This isn't a real screenshot, but it's part of the inspiration.. And when it all works and I can make screenshots this will be replaced with real ones.
+
+![image](https://raw.github.com/jejacks0n/khronos-procedural-rings/master/Assets/Screenshots/temp.jpg)
 
 
 ## Credits and Attributions

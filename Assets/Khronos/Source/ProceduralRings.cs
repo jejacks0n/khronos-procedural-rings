@@ -129,6 +129,7 @@ public class ProceduralRingsStrut : PartModule
       return;
     }
 
+    // todo: sizing should change weight and drag
     if (Input.GetKey(sizeKey))
     {
       float old = size;
