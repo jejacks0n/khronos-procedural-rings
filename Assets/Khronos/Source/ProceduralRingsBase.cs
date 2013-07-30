@@ -9,10 +9,6 @@ namespace Khronos
 
   public class ProceduralRingsBase : PartModule
   {
-  //  [KSPField] public float   verticalStep    = 0.2f;
-  //  [KSPField] public int     circleSegments  = 24;
-  //  [KSPField] public float   sideThickness   = 0.05f;
-
     [KSPField] public float   baseSize         = 1.25f;
 
     [KSPField] public string  radiusKey        = "r";
