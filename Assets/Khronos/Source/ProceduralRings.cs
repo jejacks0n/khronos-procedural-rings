@@ -1,5 +1,3 @@
-// Procedural Fairings plug-in by Alexey Volynskov
-// Licensed under CC BY 3.0 terms: http://creativecommons.org/licenses/by/3.0/
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,330 +7,10 @@ using UnityEngine;
 namespace Khronos {
 
 
-// ----------------------------------------------------------------------------
-//
-// Base
-//
-// ----------------------------------------------------------------------------
-
-public class ProceduralRingsBase : PartModule
-{
-//  [KSPField] public float   outlineWidth    = 0.05f;
-//  [KSPField] public int     outlineSlices   = 12;
-//  [KSPField] public float   verticalStep    = 0.2f;
-//  [KSPField] public int     circleSegments  = 24;
-//  [KSPField] public float   sideThickness   = 0.05f;
-  [KSPField] public Vector4 outlineColor    = new Vector4(0, 0, 0.2f, 1);
-
-  [KSPField] public float   baseSize         = 1.25f;
-
-  [KSPField] public string  radiusKey        = "r";
-  [KSPField] public float   radiusMultiplier = 0.5f;
-  [KSPField] public float   radiusMin        = 1f;
-  [KSPField] public float   radiusMax        = 30f;
-
-  [KSPField(isPersistant = true)] public float radius = 5f;
-
-  float updateDelay = 0;
-
-//  LineRenderer line = null;
-//  List<LineRenderer> outline=new List<LineRenderer>();
-//  List<ConfigurableJoint> joints=new List<ConfigurableJoint>();
-
-
-  public override void OnStart(StartState state)
-  {
-    print("[KPR] Added base part");
-  }
-
-
-  public override string GetInfo()
-  {
-    string s = "Attach a HyperRing Strut and a toroid will be built in a different time stream and warp in instantly.\n";
-    if (!string.IsNullOrEmpty(radiusKey))
-    {
-      s += "\nMouse over and hold '" + radiusKey + "' to adjust radius.";
-    }
-    return s;
-  }
-
-
-  public void OnMouseOver() {
-    if (!HighLogic.LoadedSceneIsEditor || !part.isConnected)
-    {
-      return;
-    }
-
-    if (Input.GetKey(radiusKey))
-    {
-      float old = radius;
-      radius += (Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")) * radiusMultiplier;
-      radius = Mathf.Max(radius, radiusMin);
-      radius = Mathf.Min(radius, radiusMax);
-      if (radius != old) updateDelay = 0;
-
-      print(string.Format("[KPR] adjusted radius {0}", radius));
-    }
-  }
 }
 
 
 
-// ----------------------------------------------------------------------------
-//
-// Strut
-//
-// ----------------------------------------------------------------------------
-
-public class ProceduralRingsStrut : PartModule
-{
-  [KSPField] public string  sizeKey          = "t";
-  [KSPField] public float   sizeMultiplier   = 0.1f;
-  [KSPField] public float   sizeMin          = 0.2f;
-  [KSPField] public float   sizeMax          = 5f;
-
-  [KSPField] public string  shapeKey         = "s";
-  [KSPField] public float   shapeMultiplier  = 0.1f;
-  [KSPField] public float   shapeMin         = 0.2f;
-  [KSPField] public float   shapeMax         = 5f;
-
-  [KSPField(isPersistant = true)] public float size = 1f;
-  [KSPField(isPersistant = true)] public float shape = 1f;
-
-  float updateDelay = 0;
-
-
-  public override void OnStart(StartState state)
-  {
-    print("[KPR] Added strut part");
-  }
-
-
-  public override string GetInfo()
-  {
-    string s = "Attach to a HyperRing Base and a toroid will be built in a different time stream and warp in instantly.\n";
-    if (!string.IsNullOrEmpty(sizeKey))
-    {
-      s += "\nMouse over and hold '" + sizeKey + "' to adjust the toroid size.";
-    }
-    if (!string.IsNullOrEmpty(shapeKey))
-    {
-      s += "\nMouse over and hold '" + shapeKey + "' to adjust the toroid shape.";
-    }
-    return s;
-  }
-
-
-  public void OnMouseOver() {
-    if (!HighLogic.LoadedSceneIsEditor || !part.isConnected)
-    {
-      return;
-    }
-
-    // todo: sizing should change weight and drag
-    if (Input.GetKey(sizeKey))
-    {
-      float old = size;
-      size += (Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")) * sizeMultiplier;
-      size = Mathf.Max(size, sizeMin);
-      size = Mathf.Min(size, sizeMax);
-      if (size != old) updateDelay = 0;
-
-      print(string.Format("[KPR] adjusted size {0}", size));
-    }
-    else if (Input.GetKey(shapeKey))
-    {
-      float old = shape;
-      shape += (Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")) * shapeMultiplier;
-      shape = Mathf.Max(shape, shapeMin);
-      shape = Mathf.Min(shape, shapeMax);
-      if (shape != old) updateDelay = 0;
-
-      print(string.Format("[KPR] adjusted shape {0}", shape));
-    }
-  }
-}
-
-} // namespace
-
-
-//
-//struct BezierSlope
-//{
-//  Vector2 p1, p2;
-//
-//  public BezierSlope(Vector4 v)
-//  {
-//    p1=new Vector2(v.x, v.y);
-//    p2=new Vector2(v.z, v.w);
-//  }
-//
-//  public Vector2 interp(float t)
-//  {
-//    Vector2 a=Vector2.Lerp(Vector2.zero, p1, t);
-//    Vector2 b=Vector2.Lerp(p1, p2, t);
-//    Vector2 c=Vector2.Lerp(p2, Vector2.one, t);
-//
-//    Vector2 d=Vector2.Lerp(a, b, t);
-//    Vector2 e=Vector2.Lerp(b, c, t);
-//
-//    return Vector2.Lerp(d, e, t);
-//  }
-//}
-//
-//
-//
-//struct PayloadScan
-//{
-//  public List<float> profile;
-//  public List<Part> payload;
-//  public HashSet<Part> hash;
-//
-//  public List<Part> targets;
-//
-//  public Matrix4x4 w2l;
-//
-//  public float ofs, verticalStep, extraRadius;
-//
-//
-//  public PayloadScan(Part p, float vs, float er)
-//  {
-//    profile=new List<float>();
-//    payload=new List<Part>();
-//    targets=new List<Part>();
-//    hash=new HashSet<Part>();
-//    hash.Add(p);
-//    w2l=p.transform.worldToLocalMatrix;
-//    ofs=0;
-//    verticalStep=vs;
-//    extraRadius=er;
-//  }
-//
-//
-//  public void addPart(Part p, Part prevPart)
-//  {
-//    if (p==null || hash.Contains(p)) return;
-//    hash.Add(p);
-//
-//    // check for another fairing base
-//    if (p.GetComponent<ProceduralFairingBase>()!=null)
-//    {
-//      AttachNode node=p.findAttachNode("top");
-//      if (node!=null && node.attachedPart==prevPart)
-//      {
-//        // reversed base - potential inline fairing target
-//        targets.Add(p);
-//        return;
-//      }
-//    }
-//
-//    payload.Add(p);
-//  }
-//
-//
-//  public void addPayloadEdge(Vector3 v0, Vector3 v1)
-//  {
-//    float r0=Mathf.Sqrt(v0.x*v0.x+v0.z*v0.z)+extraRadius;
-//    float r1=Mathf.Sqrt(v1.x*v1.x+v1.z*v1.z)+extraRadius;
-//
-//    float y0=(v0.y-ofs)/verticalStep;
-//    float y1=(v1.y-ofs)/verticalStep;
-//
-//    if (y0>y1)
-//    {
-//      float tmp;
-//      tmp=y0; y0=y1; y1=tmp;
-//      tmp=r0; r0=r1; r1=tmp;
-//    }
-//
-//    int h0=Mathf.FloorToInt(y0);
-//    int h1=Mathf.FloorToInt(y1);
-//    if (h1<0) return;
-//    if (h1>=profile.Count) profile.AddRange(Enumerable.Repeat(0f, h1-profile.Count+1));
-//
-//    if (h0>=0) profile[h0]=Mathf.Max(profile[h0], r0);
-//    profile[h1]=Mathf.Max(profile[h1], r1);
-//
-//    if (h0!=h1)
-//    {
-//      float k=(r1-r0)/(y1-y0);
-//      float b=r0+k*(h0+1-y0);
-//      float maxR=Mathf.Max(r0, r1);
-//
-//      for (int h=Math.Max(h0, 0); h<h1; ++h)
-//      {
-//        float r=Mathf.Min(k*(h-h0)+b, maxR);
-//        profile[h  ]=Mathf.Max(profile[h  ], r);
-//        profile[h+1]=Mathf.Max(profile[h+1], r);
-//      }
-//    }
-//  }
-//
-//
-//  public void addPayload(Bounds box, Matrix4x4 boxTm)
-//  {
-//    Matrix4x4 m=w2l*boxTm;
-//
-//    Vector3 p0=box.min, p1=box.max;
-//    var verts=new Vector3[8];
-//    for (int i=0; i<8; ++i)
-//      verts[i]=m.MultiplyPoint3x4(new Vector3(
-//        (i&1)!=0 ? p1.x : p0.x,
-//        (i&2)!=0 ? p1.y : p0.y,
-//        (i&4)!=0 ? p1.z : p0.z));
-//
-//    addPayloadEdge(verts[0], verts[1]);
-//    addPayloadEdge(verts[2], verts[3]);
-//    addPayloadEdge(verts[4], verts[5]);
-//    addPayloadEdge(verts[6], verts[7]);
-//
-//    addPayloadEdge(verts[0], verts[2]);
-//    addPayloadEdge(verts[1], verts[3]);
-//    addPayloadEdge(verts[4], verts[6]);
-//    addPayloadEdge(verts[5], verts[7]);
-//
-//    addPayloadEdge(verts[0], verts[4]);
-//    addPayloadEdge(verts[1], verts[5]);
-//    addPayloadEdge(verts[2], verts[6]);
-//    addPayloadEdge(verts[3], verts[7]);
-//  }
-//
-//
-//  public void addPayload(Collider c)
-//  {
-//    var mc=c as MeshCollider;
-//    var bc=c as BoxCollider;
-//    if (mc)
-//    {
-//      // addPayload(mc.sharedMesh.bounds,
-//      //   c.GetComponent<Transform>().localToWorldMatrix);
-//      var m=w2l*mc.transform.localToWorldMatrix;
-//      var verts=mc.sharedMesh.vertices;
-//      var faces=mc.sharedMesh.triangles;
-//      for (int i=0; i<faces.Length; i+=3)
-//      {
-//        var v0=m.MultiplyPoint3x4(verts[faces[i  ]]);
-//        var v1=m.MultiplyPoint3x4(verts[faces[i+1]]);
-//        var v2=m.MultiplyPoint3x4(verts[faces[i+2]]);
-//        addPayloadEdge(v0, v1);
-//        addPayloadEdge(v1, v2);
-//        addPayloadEdge(v2, v0);
-//      }
-//    }
-//    else if (bc)
-//      addPayload(new Bounds(bc.center, bc.size),
-//        bc.transform.localToWorldMatrix);
-//    else
-//    {
-//      // Debug.Log("generic collider "+c);
-//      addPayload(c.bounds, Matrix4x4.identity);
-//    }
-//  }
-//}
-//
-//
-////ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ//
-//
 //
 //public class ProceduralFairingBase : PartModule
 //{
@@ -1391,3 +1069,181 @@ public class ProceduralRingsStrut : PartModule
 //    }
 //  }
 //}
+
+//
+//struct BezierSlope
+//{
+//  Vector2 p1, p2;
+//
+//  public BezierSlope(Vector4 v)
+//  {
+//    p1=new Vector2(v.x, v.y);
+//    p2=new Vector2(v.z, v.w);
+//  }
+//
+//  public Vector2 interp(float t)
+//  {
+//    Vector2 a=Vector2.Lerp(Vector2.zero, p1, t);
+//    Vector2 b=Vector2.Lerp(p1, p2, t);
+//    Vector2 c=Vector2.Lerp(p2, Vector2.one, t);
+//
+//    Vector2 d=Vector2.Lerp(a, b, t);
+//    Vector2 e=Vector2.Lerp(b, c, t);
+//
+//    return Vector2.Lerp(d, e, t);
+//  }
+//}
+//
+//
+//
+//struct PayloadScan
+//{
+//  public List<float> profile;
+//  public List<Part> payload;
+//  public HashSet<Part> hash;
+//
+//  public List<Part> targets;
+//
+//  public Matrix4x4 w2l;
+//
+//  public float ofs, verticalStep, extraRadius;
+//
+//
+//  public PayloadScan(Part p, float vs, float er)
+//  {
+//    profile=new List<float>();
+//    payload=new List<Part>();
+//    targets=new List<Part>();
+//    hash=new HashSet<Part>();
+//    hash.Add(p);
+//    w2l=p.transform.worldToLocalMatrix;
+//    ofs=0;
+//    verticalStep=vs;
+//    extraRadius=er;
+//  }
+//
+//
+//  public void addPart(Part p, Part prevPart)
+//  {
+//    if (p==null || hash.Contains(p)) return;
+//    hash.Add(p);
+//
+//    // check for another fairing base
+//    if (p.GetComponent<ProceduralFairingBase>()!=null)
+//    {
+//      AttachNode node=p.findAttachNode("top");
+//      if (node!=null && node.attachedPart==prevPart)
+//      {
+//        // reversed base - potential inline fairing target
+//        targets.Add(p);
+//        return;
+//      }
+//    }
+//
+//    payload.Add(p);
+//  }
+//
+//
+//  public void addPayloadEdge(Vector3 v0, Vector3 v1)
+//  {
+//    float r0=Mathf.Sqrt(v0.x*v0.x+v0.z*v0.z)+extraRadius;
+//    float r1=Mathf.Sqrt(v1.x*v1.x+v1.z*v1.z)+extraRadius;
+//
+//    float y0=(v0.y-ofs)/verticalStep;
+//    float y1=(v1.y-ofs)/verticalStep;
+//
+//    if (y0>y1)
+//    {
+//      float tmp;
+//      tmp=y0; y0=y1; y1=tmp;
+//      tmp=r0; r0=r1; r1=tmp;
+//    }
+//
+//    int h0=Mathf.FloorToInt(y0);
+//    int h1=Mathf.FloorToInt(y1);
+//    if (h1<0) return;
+//    if (h1>=profile.Count) profile.AddRange(Enumerable.Repeat(0f, h1-profile.Count+1));
+//
+//    if (h0>=0) profile[h0]=Mathf.Max(profile[h0], r0);
+//    profile[h1]=Mathf.Max(profile[h1], r1);
+//
+//    if (h0!=h1)
+//    {
+//      float k=(r1-r0)/(y1-y0);
+//      float b=r0+k*(h0+1-y0);
+//      float maxR=Mathf.Max(r0, r1);
+//
+//      for (int h=Math.Max(h0, 0); h<h1; ++h)
+//      {
+//        float r=Mathf.Min(k*(h-h0)+b, maxR);
+//        profile[h  ]=Mathf.Max(profile[h  ], r);
+//        profile[h+1]=Mathf.Max(profile[h+1], r);
+//      }
+//    }
+//  }
+//
+//
+//  public void addPayload(Bounds box, Matrix4x4 boxTm)
+//  {
+//    Matrix4x4 m=w2l*boxTm;
+//
+//    Vector3 p0=box.min, p1=box.max;
+//    var verts=new Vector3[8];
+//    for (int i=0; i<8; ++i)
+//      verts[i]=m.MultiplyPoint3x4(new Vector3(
+//        (i&1)!=0 ? p1.x : p0.x,
+//        (i&2)!=0 ? p1.y : p0.y,
+//        (i&4)!=0 ? p1.z : p0.z));
+//
+//    addPayloadEdge(verts[0], verts[1]);
+//    addPayloadEdge(verts[2], verts[3]);
+//    addPayloadEdge(verts[4], verts[5]);
+//    addPayloadEdge(verts[6], verts[7]);
+//
+//    addPayloadEdge(verts[0], verts[2]);
+//    addPayloadEdge(verts[1], verts[3]);
+//    addPayloadEdge(verts[4], verts[6]);
+//    addPayloadEdge(verts[5], verts[7]);
+//
+//    addPayloadEdge(verts[0], verts[4]);
+//    addPayloadEdge(verts[1], verts[5]);
+//    addPayloadEdge(verts[2], verts[6]);
+//    addPayloadEdge(verts[3], verts[7]);
+//  }
+//
+//
+//  public void addPayload(Collider c)
+//  {
+//    var mc=c as MeshCollider;
+//    var bc=c as BoxCollider;
+//    if (mc)
+//    {
+//      // addPayload(mc.sharedMesh.bounds,
+//      //   c.GetComponent<Transform>().localToWorldMatrix);
+//      var m=w2l*mc.transform.localToWorldMatrix;
+//      var verts=mc.sharedMesh.vertices;
+//      var faces=mc.sharedMesh.triangles;
+//      for (int i=0; i<faces.Length; i+=3)
+//      {
+//        var v0=m.MultiplyPoint3x4(verts[faces[i  ]]);
+//        var v1=m.MultiplyPoint3x4(verts[faces[i+1]]);
+//        var v2=m.MultiplyPoint3x4(verts[faces[i+2]]);
+//        addPayloadEdge(v0, v1);
+//        addPayloadEdge(v1, v2);
+//        addPayloadEdge(v2, v0);
+//      }
+//    }
+//    else if (bc)
+//      addPayload(new Bounds(bc.center, bc.size),
+//        bc.transform.localToWorldMatrix);
+//    else
+//    {
+//      // Debug.Log("generic collider "+c);
+//      addPayload(c.bounds, Matrix4x4.identity);
+//    }
+//  }
+//}
+//
+//
+////ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ//
+//

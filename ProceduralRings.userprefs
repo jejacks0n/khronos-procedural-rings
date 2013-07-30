@@ -1,8 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Khronos/Source/ProceduralRings.cs">
     <Files>
-      <File FileName="Assets/Khronos/Source/ProceduralRings.cs" Line="14" Column="2" />
+      <File FileName="Assets/Khronos/Source/ProceduralRings.cs" Line="225" Column="52" />
+      <File FileName="Assets/Khronos/Source/ProceduralRingsBase.cs" Line="21" Column="3" />
+      <File FileName="Assets/Khronos/Source/ProceduralRingsStrut.cs" Line="79" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
