@@ -24,7 +24,7 @@
     <NoWarn>0169</NoWarn>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp ProceduralRings.dll ../../../Assets/Khronos/ProceduralRings; cp -rf ../../../Assets/Khronos ~/Desktop/KSP_osx/GameData" workingdir="${TargetDir}" externalConsole="true" />
+        <Command type="AfterBuild" command="cp ${TargetDir}/ProceduralRings.dll Assets/Khronos/ProceduralRings; cp -rf Assets/Khronos KSP_dev/GameData; open KSP_dev/KSP.app" workingdir="${ProjectDir}${TargetDir}" externalConsole="true" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -38,7 +38,7 @@
     <NoWarn>0169</NoWarn>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp ProceduralRings.dll ../../../Assets/Khronos/ProceduralRings; cp -rf ../../../Assets/Khronos ~/Desktop/KSP_osx/GameData; open ../../../ksp" workingdir="${TargetDir}" externalConsole="true" />
+        <Command type="AfterBuild" command="cp ${TargetDir}/ProceduralRings.dll Assets/Khronos/ProceduralRings; cp -rf Assets/Khronos KSP_dev/GameData; open KSP_dev/KSP.app" workingdir="${ProjectDir}" externalConsole="true" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -62,7 +62,7 @@
       <HintPath>Assets\PartTools\Lib\PartToolsEditor.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\Desktop\KSP_osx\KSP.app\Contents\Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>KSP_dev\KSP.app\Contents\Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

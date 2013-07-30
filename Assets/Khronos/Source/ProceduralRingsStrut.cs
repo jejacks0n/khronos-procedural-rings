@@ -35,7 +35,7 @@ namespace Khronos
     {
       if (state == StartState.None || (state & StartState.Editor) == 0) return;
 
-      print("[KPR] Added strut part");
+      print("[KPR] added strut part");
     }
 
 
@@ -59,8 +59,6 @@ namespace Khronos
       width += delta;
       width = Mathf.Max(width, widthMin);
       width = Mathf.Min(width, widthMax);
-
-      print(string.Format("[KPR] adjusted width {0}", width));
       calcShape();
     }
   
@@ -70,14 +68,14 @@ namespace Khronos
       height += delta;
       height = Mathf.Max(height, heightMin);
       height = Mathf.Min(height, heightMax);
-
-      print(string.Format("[KPR] adjusted height {0}", height));
       calcShape();
     }
 
 
     void calcShape()
     {
+      print(string.Format("[KPR] width {0}", width));
+      print(string.Format("[KPR] height {0}", height));
     }
   }
 

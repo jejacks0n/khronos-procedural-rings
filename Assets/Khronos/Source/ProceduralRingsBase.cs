@@ -43,7 +43,7 @@ namespace Khronos
     {
       if (state == StartState.None || (state & StartState.Editor) == 0) return;
 
-      print("[KPR] Added base part");
+      print("[KPR] added base part");
       if (line) line.transform.Rotate(0, 90, 0);
 
       destroyOutline();
@@ -75,20 +75,25 @@ namespace Khronos
     }
 
 
+    public void onPartAttach(Part part) {
+      if (!HighLogic.LoadedSceneIsEditor) return;
+
+      print("[KPR] part added to base");
+    }
+
+
     void setRadius(float delta)
     {
       radius += delta;
       radius = Mathf.Max(radius, radiusMin);
       radius = Mathf.Min(radius, radiusMax);
-
-      print(string.Format("[KPR] adjusted radius {0}", radius));
       calcShape();
     }
 
 
     void calcShape()
     {
-      print("[KPR] caclulating shape");
+      print(string.Format("[KPR] radius {0}", radius));
     }
 
 
