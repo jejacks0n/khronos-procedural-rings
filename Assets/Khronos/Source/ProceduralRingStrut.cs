@@ -24,7 +24,7 @@ namespace Khronos
 
     public override string GetInfo()
     {
-      string s = "Attach to a HyperRing Base and a toroid will be built in a different time stream and appear instantly.\n";
+      string s = "Attach this strut to a HyperRing Base and a toroid will be built in a different time stream and appear instantly.\n";
       if (!string.IsNullOrEmpty(widthKey)) s += "\nMouse over and hold '" + widthKey + "' to adjust the toroid width.";
       if (!string.IsNullOrEmpty(heightKey)) s += "\nMouse over and hold '" + heightKey + "' to adjust the toroid height.";
       return s;
@@ -33,9 +33,8 @@ namespace Khronos
 
     public override void OnStart(StartState state)
     {
-      if (state == StartState.None || (state & StartState.Editor) == 0) return;
-
       part.OnEditorAttach += OnEditorAttach;
+      if (state == StartState.None || (state & StartState.Editor) == 0) return;
     }
 
 
@@ -49,8 +48,21 @@ namespace Khronos
 
 
     public void OnEditorAttach() {
-      if (part.parent.GetComponent<ProceduralRingBase>() != null) buildStrutsAndToroid();
+      // todo, this intentionally only happens once, but we may need to build each strut as a separate part, and only do a toroid pass once.
+      if (part.symmetryMode > 0) return;
+
+      if (part.parent.GetComponent<ProceduralRingBase>() != null)
+      {
+        buildStrut();
+        buildToroid();
+      }
       else alert("HyperRing Struts only work when attached to a HyperRing Base", 2);
+    }
+
+
+    public void OnDestroy()
+    {
+      print("[KPR] Strut OnDestroy");
     }
 
 
@@ -78,9 +90,15 @@ namespace Khronos
     }
 
 
-    private void buildStrutsAndToroid()
+    private void buildStrut()
     {
-      print("!!!!!!!buildStrutsAndToroid");
+      print("[KPR] Strut buildStrut");
+    }
+
+
+    private void buildToroid()
+    {
+      print("[KPR] Strut buildToroid");
     }
   }
 

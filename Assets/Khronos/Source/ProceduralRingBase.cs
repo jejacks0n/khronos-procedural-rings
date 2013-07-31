@@ -25,7 +25,6 @@ namespace Khronos
 
     LineRenderer line = null;
     List<LineRenderer> outline=new List<LineRenderer>();
-//    List<ConfigurableJoint> joints=new List<ConfigurableJoint>();
 
     public override string GetInfo()
     {
@@ -42,6 +41,7 @@ namespace Khronos
       if (line) line.transform.Rotate(0, 90, 0);
 
       destroyOutline();
+
       for (int i = 0; i < outlineSlices; ++i)
       {
         var r = makeLineRenderer("fairing outline", outlineColor, outlineWidth);
@@ -62,6 +62,7 @@ namespace Khronos
 
     public void OnDestroy()
     {
+      print("[KPR] Base OnDestroy");
       if (line) {
         UnityEngine.Object.Destroy(line.gameObject);
         line = null;
