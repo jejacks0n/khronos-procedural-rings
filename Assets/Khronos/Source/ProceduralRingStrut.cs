@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Khronos
 {
 
-  public class ProceduralRingsStrut : PartModule
+  public class ProceduralRingStrut : ProceduralRingPartModule
   {
     [KSPField] public string  widthKey          = "w";
     [KSPField] public float   widthMin          = 0.2f;
@@ -24,18 +24,17 @@ namespace Khronos
 
     public override string GetInfo()
     {
-      string s = "Attach to a HyperRing Base and a toroid will be built in a different time stream and appear instantly.\n";
+      string s = "Attach this strut to a HyperRing Base and a toroid will be built in a different time stream and appear instantly.\n";
       if (!string.IsNullOrEmpty(widthKey)) s += "\nMouse over and hold '" + widthKey + "' to adjust the toroid width.";
       if (!string.IsNullOrEmpty(heightKey)) s += "\nMouse over and hold '" + heightKey + "' to adjust the toroid height.";
       return s;
     }
-  
-  
+
+
     public override void OnStart(StartState state)
     {
+      part.OnEditorAttach += OnEditorAttach;
       if (state == StartState.None || (state & StartState.Editor) == 0) return;
-
-      print("[KPR] added strut part");
     }
 
 
@@ -43,18 +42,31 @@ namespace Khronos
       if (!HighLogic.LoadedSceneIsEditor || !part.isConnected) return;
   
       // todo: sizing should change weight and drag
-      if (Input.GetKey(widthKey))
-      {
-        setWidth((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")) * speedMultiplier);
-      }
-      else if (Input.GetKey(heightKey))
-      {
-        setHeight((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")) * speedMultiplier);
-      }
+      if (Input.GetKey(widthKey)) setWidth((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")) * speedMultiplier);
+      else if (Input.GetKey(heightKey)) setHeight((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")) * speedMultiplier);
     }
-  
-  
-    void setWidth(float delta)
+
+
+    public void OnEditorAttach() {
+      // todo, this intentionally only happens once, but we may need to build each strut as a separate part, and only do a toroid pass once.
+      if (part.symmetryMode > 0) return;
+
+      if (part.parent.GetComponent<ProceduralRingBase>() != null)
+      {
+        buildStrut();
+        buildToroid();
+      }
+      else alert("HyperRing Struts only work when attached to a HyperRing Base", 2);
+    }
+
+
+    public void OnDestroy()
+    {
+      print("[KPR] Strut OnDestroy");
+    }
+
+
+    private void setWidth(float delta)
     {
       width += delta;
       width = Mathf.Max(width, widthMin);
@@ -63,7 +75,7 @@ namespace Khronos
     }
   
   
-    void setHeight(float delta)
+    private void setHeight(float delta)
     {
       height += delta;
       height = Mathf.Max(height, heightMin);
@@ -71,11 +83,22 @@ namespace Khronos
       calcShape();
     }
 
-
-    void calcShape()
+     
+    private void calcShape()
     {
-      print(string.Format("[KPR] width {0}", width));
-      print(string.Format("[KPR] height {0}", height));
+      print(string.Format("[KPR] width {0}, height {1}", width, height));
+    }
+
+
+    private void buildStrut()
+    {
+      print("[KPR] Strut buildStrut");
+    }
+
+
+    private void buildToroid()
+    {
+      print("[KPR] Strut buildToroid");
     }
   }
 

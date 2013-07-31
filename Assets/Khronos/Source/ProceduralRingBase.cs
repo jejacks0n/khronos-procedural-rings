@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Khronos
 {
 
-  public class ProceduralRingsBase : PartModule
+  public class ProceduralRingBase : ProceduralRingPartModule
   {
     [KSPField] public float   baseSize         = 1.25f;
 
@@ -25,7 +25,6 @@ namespace Khronos
 
     LineRenderer line = null;
     List<LineRenderer> outline=new List<LineRenderer>();
-//    List<ConfigurableJoint> joints=new List<ConfigurableJoint>();
 
     public override string GetInfo()
     {
@@ -39,10 +38,10 @@ namespace Khronos
     {
       if (state == StartState.None || (state & StartState.Editor) == 0) return;
 
-      print("[KPR] added base part");
       if (line) line.transform.Rotate(0, 90, 0);
 
       destroyOutline();
+
       for (int i = 0; i < outlineSlices; ++i)
       {
         var r = makeLineRenderer("fairing outline", outlineColor, outlineWidth);
@@ -63,6 +62,7 @@ namespace Khronos
 
     public void OnDestroy()
     {
+      print("[KPR] Base OnDestroy");
       if (line) {
         UnityEngine.Object.Destroy(line.gameObject);
         line = null;
@@ -71,14 +71,7 @@ namespace Khronos
     }
 
 
-    public void onPartAttach(Part part) {
-      if (!HighLogic.LoadedSceneIsEditor) return;
-
-      print("[KPR] part added to base");
-    }
-
-
-    void setRadius(float delta)
+    private void setRadius(float delta)
     {
       radius += delta;
       radius = Mathf.Max(radius, radiusMin);
@@ -87,13 +80,13 @@ namespace Khronos
     }
 
 
-    void calcShape()
+    private void calcShape()
     {
       print(string.Format("[KPR] radius {0}", radius));
     }
 
 
-    LineRenderer makeLineRenderer(string name, Color color, float wd)
+    private LineRenderer makeLineRenderer(string name, Color color, float wd)
     {
       var o=new GameObject(name);
       o.transform.parent = part.transform;
@@ -109,7 +102,7 @@ namespace Khronos
     }
 
 
-    void destroyOutline()
+    private void destroyOutline()
     {
       foreach (var r in outline) UnityEngine.Object.Destroy(r.gameObject);
       outline.Clear();
