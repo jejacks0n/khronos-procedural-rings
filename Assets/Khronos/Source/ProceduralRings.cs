@@ -269,6 +269,31 @@ namespace Khronos {
 //  }
 //
 //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //  void recalcShape()
 //  {
 //    // scan payload and build its profile

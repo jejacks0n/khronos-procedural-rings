@@ -38,7 +38,7 @@
     <NoWarn>0169</NoWarn>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp ${TargetDir}/ProceduralRings.dll Assets/Khronos/ProceduralRings; cp -rf Assets/Khronos KSP_dev/GameData; open KSP_dev/KSP.app" workingdir="${ProjectDir}" externalConsole="true" />
+        <Command type="AfterBuild" command="cp &quot;${TargetDir}/ProceduralRings.dll&quot; Assets/Khronos/ProceduralRings &amp; cp -rf Assets/Khronos KSP_dev/GameData &amp; open KSP_dev/KSP.app" workingdir="${ProjectDir}" externalConsole="true" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -97,6 +97,7 @@
     <Compile Include="Assets\Khronos\Source\ProceduralRings.cs" />
     <Compile Include="Assets\Khronos\Source\ProceduralRingsStrut.cs" />
     <Compile Include="Assets\Khronos\Source\ProceduralRingsBase.cs" />
+    <Compile Include="Assets\Khronos\Source\UI.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

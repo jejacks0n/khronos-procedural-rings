@@ -39,7 +39,6 @@ namespace Khronos
     {
       if (state == StartState.None || (state & StartState.Editor) == 0) return;
 
-      print("[KPR] added base part");
       if (line) line.transform.Rotate(0, 90, 0);
 
       destroyOutline();
@@ -68,13 +67,6 @@ namespace Khronos
         line = null;
       }
       destroyOutline();
-    }
-
-
-    public void onPartAttach(Part part) {
-      if (!HighLogic.LoadedSceneIsEditor) return;
-
-      print("[KPR] part added to base");
     }
 
 

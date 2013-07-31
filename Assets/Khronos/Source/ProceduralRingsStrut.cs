@@ -29,13 +29,13 @@ namespace Khronos
       if (!string.IsNullOrEmpty(heightKey)) s += "\nMouse over and hold '" + heightKey + "' to adjust the toroid height.";
       return s;
     }
-  
-  
+
+
     public override void OnStart(StartState state)
     {
       if (state == StartState.None || (state & StartState.Editor) == 0) return;
 
-      print("[KPR] added strut part");
+      part.OnEditorAttach += OnEditorAttach;
     }
 
 
@@ -43,17 +43,17 @@ namespace Khronos
       if (!HighLogic.LoadedSceneIsEditor || !part.isConnected) return;
   
       // todo: sizing should change weight and drag
-      if (Input.GetKey(widthKey))
-      {
-        setWidth((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")) * speedMultiplier);
-      }
-      else if (Input.GetKey(heightKey))
-      {
-        setHeight((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")) * speedMultiplier);
-      }
+      if (Input.GetKey(widthKey)) setWidth((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")) * speedMultiplier);
+      else if (Input.GetKey(heightKey)) setHeight((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")) * speedMultiplier);
     }
-  
-  
+
+
+    public void OnEditorAttach() {
+      if (part.parent.GetComponent<ProceduralRingsBase>() != null) buildStrutsAndToroid();
+      else UI.alert("HyperRing Struts only work when attached to a HyperRing Base", 2);
+    }
+
+
     void setWidth(float delta)
     {
       width += delta;
@@ -71,12 +71,18 @@ namespace Khronos
       calcShape();
     }
 
-
+     
     void calcShape()
     {
-      print(string.Format("[KPR] width {0}", width));
-      print(string.Format("[KPR] height {0}", height));
+      print(string.Format("[KPR] width {0}, height {1}", width, height));
     }
+
+
+    void buildStrutsAndToroid()
+    {
+      print("!!!!!!!buildStrutsAndToroid");
+    }
+
   }
 
 }
