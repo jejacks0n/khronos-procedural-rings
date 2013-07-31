@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Khronos
 {
 
-  public class ProceduralRingsStrut : PartModule
+  public class ProceduralRingStrut : ProceduralRingPartModule
   {
     [KSPField] public string  widthKey          = "w";
     [KSPField] public float   widthMin          = 0.2f;
@@ -49,12 +49,12 @@ namespace Khronos
 
 
     public void OnEditorAttach() {
-      if (part.parent.GetComponent<ProceduralRingsBase>() != null) buildStrutsAndToroid();
+      if (part.parent.GetComponent<ProceduralRingBase>() != null) buildStrutsAndToroid();
       else alert("HyperRing Struts only work when attached to a HyperRing Base", 2);
     }
 
 
-    void setWidth(float delta)
+    private void setWidth(float delta)
     {
       width += delta;
       width = Mathf.Max(width, widthMin);
@@ -63,7 +63,7 @@ namespace Khronos
     }
   
   
-    void setHeight(float delta)
+    private void setHeight(float delta)
     {
       height += delta;
       height = Mathf.Max(height, heightMin);
@@ -72,49 +72,16 @@ namespace Khronos
     }
 
      
-    void calcShape()
+    private void calcShape()
     {
       print(string.Format("[KPR] width {0}, height {1}", width, height));
     }
 
 
-    void buildStrutsAndToroid()
+    private void buildStrutsAndToroid()
     {
       print("!!!!!!!buildStrutsAndToroid");
     }
-
-
-    // Alerting
-
-
-    float alertTime = 0;
-    string alertText = null;
-
-
-    void alert(string message, float time)
-    {
-      alertTime = Time.time + time;
-      alertText = message;
-    }
-
-
-    public void OnGUI()
-    {
-      if (!HighLogic.LoadedSceneIsEditor) return;
-
-      if (Time.time < alertTime)
-      {
-        GUI.skin = HighLogic.Skin;
-        GUIStyle style = new GUIStyle("Label");
-        style.alignment = TextAnchor.MiddleCenter;
-        style.fontSize = 20;
-        style.normal.textColor = Color.black;
-        GUI.Label(new Rect(2, 2 + (Screen.height / 9), Screen.width, 50), alertText, style);
-        style.normal.textColor = Color.yellow;
-        GUI.Label(new Rect(0, Screen.height / 9, Screen.width, 50), alertText, style);
-      }
-    }
-
   }
 
 }

@@ -7,8 +7,9 @@ using UnityEngine;
 namespace Khronos
 {
 
-  public class UI
+  public class ProceduralRingPartModule : PartModule
   {
+
     // Alerting
     float alertTime = 0;
     string alertText = null;
@@ -37,7 +38,7 @@ namespace Khronos
         GUI.Label(new Rect(0, Screen.height / 9, Screen.width, 50), alertText, style);
       }
     }
-
   }
+
 }
 

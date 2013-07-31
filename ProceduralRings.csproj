@@ -94,10 +94,10 @@
     <Folder Include="Assets\Khronos\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Khronos\Source\ProceduralRings.cs" />
-    <Compile Include="Assets\Khronos\Source\ProceduralRingsStrut.cs" />
-    <Compile Include="Assets\Khronos\Source\ProceduralRingsBase.cs" />
-    <Compile Include="Assets\Khronos\Source\UI.cs" />
+    <Compile Include="Assets\Khronos\Source\ProcedrualRingPartModule.cs" />
+    <Compile Include="Assets\Khronos\Source\ProceduralRingBase.cs" />
+    <Compile Include="Assets\Khronos\Source\ProceduralRingStrut.cs" />
+    <Compile Include="Assets\Khronos\Source\temp.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

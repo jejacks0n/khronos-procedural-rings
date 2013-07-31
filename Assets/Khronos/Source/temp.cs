@@ -1,16 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using UnityEngine;
- 
-namespace Khronos {
-
-
-}
-
-
-
 //
 //public class ProceduralFairingBase : PartModule
 //{

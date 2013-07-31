@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Khronos
 {
 
-  public class ProceduralRingsBase : PartModule
+  public class ProceduralRingBase : ProceduralRingPartModule
   {
     [KSPField] public float   baseSize         = 1.25f;
 
@@ -70,7 +70,7 @@ namespace Khronos
     }
 
 
-    void setRadius(float delta)
+    private void setRadius(float delta)
     {
       radius += delta;
       radius = Mathf.Max(radius, radiusMin);
@@ -79,13 +79,13 @@ namespace Khronos
     }
 
 
-    void calcShape()
+    private void calcShape()
     {
       print(string.Format("[KPR] radius {0}", radius));
     }
 
 
-    LineRenderer makeLineRenderer(string name, Color color, float wd)
+    private LineRenderer makeLineRenderer(string name, Color color, float wd)
     {
       var o=new GameObject(name);
       o.transform.parent = part.transform;
@@ -101,7 +101,7 @@ namespace Khronos
     }
 
 
-    void destroyOutline()
+    private void destroyOutline()
     {
       foreach (var r in outline) UnityEngine.Object.Destroy(r.gameObject);
       outline.Clear();
