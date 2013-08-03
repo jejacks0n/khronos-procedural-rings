@@ -24,7 +24,7 @@
     <NoWarn>0169</NoWarn>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp ${TargetDir}/ProceduralRings.dll Assets/Khronos/ProceduralRings; cp -rf Assets/Khronos KSP_dev/GameData; open KSP_dev/KSP.app" workingdir="${ProjectDir}${TargetDir}" externalConsole="true" />
+        <Command type="AfterBuild" command="cp &quot;${TargetDir}/ProceduralRings.dll&quot; Assets/Khronos/ProceduralRings &amp; cp -rf Assets/Khronos KSP_debug/GameData &amp; open KSP_debug/KSP.app" workingdir="${ProjectDir}" externalConsole="true" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -38,7 +38,7 @@
     <NoWarn>0169</NoWarn>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp &quot;${TargetDir}/ProceduralRings.dll&quot; Assets/Khronos/ProceduralRings &amp; cp -rf Assets/Khronos KSP_dev/GameData &amp; open KSP_dev/KSP.app" workingdir="${ProjectDir}" externalConsole="true" />
+        <Command type="AfterBuild" command="cp &quot;${TargetDir}/ProceduralRings.dll&quot; Assets/Khronos/ProceduralRings &amp; cp -rf Assets/Khronos KSP_release/GameData &amp; open KSP_release/KSP.app" workingdir="${ProjectDir}" externalConsole="true" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -52,9 +52,6 @@
       <HintPath>..\..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="ProceduralRings">
-      <HintPath>Assets\Khronos\ProceduralRings\ProceduralRings.dll</HintPath>
-    </Reference>
     <Reference Include="PartTools">
       <HintPath>Assets\PartTools\Lib\PartTools.dll</HintPath>
     </Reference>
@@ -62,7 +59,7 @@
       <HintPath>Assets\PartTools\Lib\PartToolsEditor.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>KSP_dev\KSP.app\Contents\Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>KSP_debug\KSP.app\Contents\Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -95,9 +92,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Khronos\Source\ProcedrualRingPartModule.cs" />
-    <Compile Include="Assets\Khronos\Source\ProceduralRingBase.cs" />
     <Compile Include="Assets\Khronos\Source\ProceduralRingStrut.cs" />
     <Compile Include="Assets\Khronos\Source\temp.cs" />
+    <Compile Include="Assets\Khronos\Source\ProceduralRingHub.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

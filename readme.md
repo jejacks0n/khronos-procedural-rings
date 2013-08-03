@@ -7,8 +7,7 @@ Using duct tape, some scrap struts and not-so-top-of-the-line panels, a speciali
 
 ## Notes
 
-This project is incomplete, and not useful yet. At this point it only logs the radius / size / shape values.
-Use [Alt/Option]+F2 to open the console and use the documented controls to see the values change. These values will be persisted in your craft file.
+This project is incomplete, and not useful yet.
 
 
 ## Installation
@@ -18,8 +17,8 @@ Use [Alt/Option]+F2 to open the console and use the documented controls to see t
 
 ## Usage
 
-1. Place a HyperRing Base - they come in 0.625m, 1.25m, and 2.5m sizes.
-2. Hover over the base and while pressing the `r` key, move your mouse to adjust the ring radius.
+1. Place a HyperRing Hub - they come in 0.625m, 1.25m, and 2.5m sizes.
+2. Hover over the hub and while pressing the `r` key, move your mouse to adjust the ring radius.
 3. Once you have the radius desired you can add a HyperRing Strut. The struts come in a few flavors, can be placed with different symmetries and at angles for various effects, so play around.
 4. Once the struts have been placed they will be magically lengthened to the specified radius and a toroid will be created connected to the struts and creating the HyperRing.
 5. As a final step you can hover over the toroid and make further adjustments to its shape. Use the `w` key to adjust the width, and `h` to adjust height.
@@ -35,7 +34,7 @@ This isn't a real screenshot, but it's part of the inspiration.. And when it all
 ## Credits and Attributions
 
 - Code by **[Jeremy Jackson](https://github.com/jejacks0n)**
-- Models by **[Jeremy Jackson](https://github.com/jejacks0n)** (better ones are on the way)
+- Models by **[kommitz](http://forum.kerbalspaceprogram.com/showthread.php/26286-Nucleonics-Ltd-Rocketry-Division)**
 - Inspiration and useful code by **e-dog** and his **[Procedural Fairings](http://kerbalspaceport.com/procedural-fairings/)**
 
 

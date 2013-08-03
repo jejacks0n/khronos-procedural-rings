@@ -1,3 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+using UnityEngine;
+
 //
 //public class ProceduralFairingBase : PartModule
 //{
@@ -256,31 +262,6 @@
 //  }
 //
 //
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //  void recalcShape()
 //  {
 //    // scan payload and build its profile
@@ -1081,7 +1062,6 @@
 //    }
 //  }
 //}
-
 //
 //struct BezierSlope
 //{
