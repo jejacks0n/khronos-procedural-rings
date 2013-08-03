@@ -3,4 +3,5 @@ Library
 PartTools
 ProjectSettings
 PartTools.cfg
-KSP_dev
+KSP_debug
+KSP_release
