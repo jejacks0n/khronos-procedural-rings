@@ -22,6 +22,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="cp &quot;${TargetDir}/ProceduralRings.dll&quot; Assets/Khronos/ProceduralRings &amp; cp -rf Assets/Khronos KSP_debug/GameData &amp; open KSP_debug/KSP.app" workingdir="${ProjectDir}" externalConsole="true" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,7 +38,7 @@
     <NoWarn>0169</NoWarn>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="cp &quot;${TargetDir}/ProceduralRings.dll&quot; Assets/Khronos/ProceduralRings &amp; cp -rf Assets/Khronos KSP_dev/GameData &amp; open KSP_dev/KSP.app" workingdir="${ProjectDir}" externalConsole="true" />
+        <Command type="AfterBuild" command="cp &quot;${TargetDir}/ProceduralRings.dll&quot; Assets/Khronos/ProceduralRings &amp; cp -rf Assets/Khronos KSP_release/GameData &amp; open KSP_release/KSP.app" workingdir="${ProjectDir}" externalConsole="true" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -54,7 +59,7 @@
       <HintPath>Assets\PartTools\Lib\PartToolsEditor.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>KSP_dev\KSP.app\Contents\Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>KSP_debug\KSP.app\Contents\Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

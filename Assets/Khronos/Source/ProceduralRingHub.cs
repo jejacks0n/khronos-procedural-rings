@@ -6,54 +6,34 @@ namespace Khronos
 
   public class ProceduralRingHub : ProceduralRingPartModule
   {
-    [KSPField] public float   hubSize         = 1.25f;
+    [KSPField] public float   hubSize          = 1.25f;
 
     [KSPField] public float   radiusMin        = 1f;
     [KSPField] public float   radiusMax        = 30f;
 
-    [KSPField] public float   speedMultiplier  = 0.5f;
     [KSPField] public int     outlineSegments  = 32;
 
     [KSPField(isPersistant = true)] public float radius = 5f;
 
-    public List<ProceduralRingStrut> struts = new List<ProceduralRingStrut>();
-
     public override string GetInfo()
     {
-      string s = "Attach a HyperRing Strut and a toroid will be built in a different time stream and appear instantly.\n";
-      if (!string.IsNullOrEmpty(radiusKey)) s += "\nMouse over and hold '" + radiusKey + "' to adjust radius.";
-      return s;
-    }
-
-
-    public override void OnStart(StartState state)
-    {
-      if (state == StartState.None || (state & StartState.Editor) == 0)
-      {}
-      else
-      {
-        createOutline();
-      }
+      return "Attach a HyperRing Strut and a toroid will be built in a different time stream and appear instantly.\n" + keyboardControls();
     }
 
 
     public void OnMouseOver()
     {
-      if (!HighLogic.LoadedSceneIsEditor || !part.isConnected) return;
+      if (!HighLogic.LoadedSceneIsEditor) return;
 
-      if (Input.GetKey(radiusKey))
-      {
-        setRadius((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")));
-//        foreach (var strut in struts) strut.updateOutline();
-      }
-//      if (Input.GetKey(widthKey)) setWidth((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")));
-//      else if (Input.GetKey(heightKey)) setHeight((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")));
+      if (Input.GetKey(radiusKey)) setRadius((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")));
+      if (Input.GetKey(widthKey)) setWidth((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")));
+      else if (Input.GetKey(heightKey)) setHeight((Input.GetAxis("Mouse X") + Input.GetAxis("Mouse Y")));
     }
 
 
-    public void OnDestroy()
+    public override void enableForEditor()
     {
-      destroyOutline();
+      createOutline();
     }
 
 
@@ -73,6 +53,16 @@ namespace Khronos
     }
 
 
+    public void setWidth(float delta)
+    {
+    }
+
+
+    public void setHeight(float delta)
+    {
+    }
+
+
     private void createOutline()
     {
       destroyOutline();
@@ -81,7 +71,7 @@ namespace Khronos
     }
 
 
-    public void updateOutline()
+    private void updateOutline()
     {
       float delta = (2.0f * Mathf.PI) / outlineSegments;
       float theta = 0;
@@ -91,8 +81,27 @@ namespace Khronos
         outline.SetPosition(i, new Vector3(radius * Mathf.Cos(theta), 0, radius * Mathf.Sin(theta)));
         theta += delta;
       }
+      updateStrutOutlines();
+    }
 
-      foreach (var strut in struts) strut.updateOutline();
+
+    private void updateStrutOutlines()
+    {
+      foreach (var child in part.children)
+      {
+        ProceduralRingStrut strut = child.GetComponent<ProceduralRingStrut>();
+        if (strut != null)
+        {
+          strut.hub = this;
+          strut.createOutline();
+        }
+      }
+    }
+
+
+    public override void drawMesh()
+    {
+      createOutline();
     }
   }
 

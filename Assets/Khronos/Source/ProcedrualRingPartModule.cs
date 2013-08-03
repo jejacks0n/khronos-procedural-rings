@@ -9,11 +9,56 @@ namespace Khronos
     [KSPField] public float   outlineWidth     = 0.05f;
 
     [KSPField] public string  radiusKey        = "r";
+    [KSPField] public string  widthKey         = "w";
+    [KSPField] public string  heightKey        = "h";
+
+    [KSPField] public float   speedMultiplier  = 0.5f;
 
     protected LineRenderer outline = null;
 
     float alertTime = 0;
     string alertText = null;
+
+    public override void OnStart(StartState state)
+    {
+      if (state == StartState.None) return;
+      else if ((state & StartState.Editor) == 0) drawMesh();
+      else enableForEditor();
+    }
+
+
+    public virtual void OnDestroy()
+    {
+      destroyOutline();
+    }
+
+
+    public virtual void destroyOutline()
+    {
+      if (!outline) return;
+      UnityEngine.Object.Destroy(outline.gameObject);
+      outline = null;
+    }
+
+
+    public virtual void enableForEditor()
+    {
+    }
+
+
+    public virtual void drawMesh()
+    {
+    }
+
+
+    protected string keyboardControls()
+    {
+      string s = "";
+      if (!string.IsNullOrEmpty(radiusKey)) s += "\nMouse over and hold '" + radiusKey + "' to adjust radius.";
+      if (!string.IsNullOrEmpty(widthKey))  s += "\nMouse over and hold '" + widthKey + "' to adjust the toroid width.";
+      if (!string.IsNullOrEmpty(heightKey)) s += "\nMouse over and hold '" + heightKey + "' to adjust the toroid height.";
+      return s;
+    }
 
 
     protected LineRenderer makeLineRenderer(string name, Color color, float width, int vertexCount = 1)
@@ -29,14 +74,6 @@ namespace Khronos
       r.SetWidth(width, width);
       r.SetVertexCount(vertexCount + 1);
       return r;
-    }
-
-
-    protected void destroyOutline()
-    {
-      if (!outline) return;
-      UnityEngine.Object.Destroy(outline.gameObject);
-      outline = null;
     }
 
 
