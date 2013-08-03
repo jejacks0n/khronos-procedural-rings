@@ -32,7 +32,7 @@ This isn't a real screenshot, but it's part of the inspiration.. And when it all
 
 This image is just the outlines of the struts and toroid. More work needs to be done to allow the struts to be placed at different angles and how that impacts the toroid, as well as getting models fully developed and meshes built out procedurally.
 
-![image](https://raw.github.com/jejacks0n/khronos-procedural-rings/master/Assets/Screenshots/outline.jpg)
+![image](https://raw.github.com/jejacks0n/khronos-procedural-rings/master/Assets/Screenshots/outline.png)
 
 
 
