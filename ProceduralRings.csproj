@@ -22,11 +22,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="AfterBuild" command="cp ${TargetDir}/ProceduralRings.dll Assets/Khronos/ProceduralRings; cp -rf Assets/Khronos KSP_dev/GameData; open KSP_dev/KSP.app" workingdir="${ProjectDir}${TargetDir}" externalConsole="true" />
-      </CustomCommands>
-    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -52,9 +47,6 @@
       <HintPath>..\..\..\..\..\Applications\Unity\Unity.app\Contents\Frameworks\Managed\UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="ProceduralRings">
-      <HintPath>Assets\Khronos\ProceduralRings\ProceduralRings.dll</HintPath>
-    </Reference>
     <Reference Include="PartTools">
       <HintPath>Assets\PartTools\Lib\PartTools.dll</HintPath>
     </Reference>
@@ -95,9 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Khronos\Source\ProcedrualRingPartModule.cs" />
-    <Compile Include="Assets\Khronos\Source\ProceduralRingBase.cs" />
     <Compile Include="Assets\Khronos\Source\ProceduralRingStrut.cs" />
     <Compile Include="Assets\Khronos\Source\temp.cs" />
+    <Compile Include="Assets\Khronos\Source\ProceduralRingHub.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
