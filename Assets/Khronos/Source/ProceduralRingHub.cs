@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Khronos
 {
-
+   
   public class ProceduralRingHub : ProceduralRingPartModule
   {
     [KSPField] public float   hubSize          = 1.25f;
@@ -34,6 +34,13 @@ namespace Khronos
     public override void enableForEditor()
     {
       createOutline();
+      buildTorus();
+    }
+
+
+    public void buildTorus()
+    {
+//      mesh = Primitives.Torus()
     }
 
 

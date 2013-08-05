@@ -77,7 +77,30 @@ namespace Khronos
     }
 
 
-    // Alerting
+    // Logging / Alerting
+
+
+    protected void log(string message, params object[] list)
+    {
+      message = "[KPR] " + message;
+      if (list.Length > 0) message = string.Format(message, list);
+      Debug.Log(message);
+    }
+
+
+    protected void error(string message, params object[] list)
+    {
+      message = "[KPR] " + message;
+      if (list.Length > 0) message = string.Format(message, list);
+      Debug.LogError(message);
+    }
+
+
+    protected void alert(string message, float time)
+    {
+      alertTime = Time.time + time;
+      alertText = message;
+    }
 
 
     public void OnGUI()
@@ -95,13 +118,6 @@ namespace Khronos
         style.normal.textColor = Color.yellow;
         GUI.Label(new Rect(0, Screen.height / 9, Screen.width, 50), alertText, style);
       }
-    }
-
-
-    protected void alert(string message, float time)
-    {
-      alertTime = Time.time + time;
-      alertText = message;
     }
   }
 
